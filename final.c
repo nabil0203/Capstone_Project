@@ -86,7 +86,7 @@ void loadItemsFromFile()
 
 void showList()
 {
-    printf("\nViewing Item:-\n");
+    printf("\n\n~~~Viewing Item:-\n");
     if (itemCount == 0)
     {
         printf("No medicine found.\n");
@@ -202,7 +202,7 @@ int main()
     printf("\n~~~~~~~~~~~~~~~ WELCOME ~~~~~~~~~~~~~~~\n");
     printf("\n~~~ Medical Store Management System ~~~\n");
     printf("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
-    
+
     int loadChoice;
     printf("\nDo you want to load Previous Database? (1 for Yes, 0 for No): ");
     scanf("%d", &loadChoice);
@@ -229,9 +229,7 @@ int main()
     while (1)
     {
 
-        printf("\n~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-        printf("\n~~~~~~~ Main Menu ~~~~~~~~\n");
-        printf("\n~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
+        printf("\n~~~~~~~~~ Main Menu ~~~~~~~~~~\n\n");
         printf("1. Add Medicine\n");
         printf("2. Show Medicine List\n");
         printf("3. Update Medicine\n");
