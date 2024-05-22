@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define MAX_ITEMS 100       
+#define MAX_ITEMS 100
 
 struct Item
 {
@@ -43,7 +43,7 @@ void addMedicine()
     scanf("%d", &newItem.quantity);
 
     items[itemCount++] = newItem;
-    
+
     printf("\n---New Item Added Successfully---\n");
 }
 
@@ -65,6 +65,7 @@ void saveItemsToFile()
 
 void loadItemsFromFile()
 {
+    system("cls");
     FILE *fp = fopen("item.txt", "r");
     if (fp == NULL)
     {
@@ -96,6 +97,27 @@ void showList()
             printf("ID: %s || Name: %s || Company: %s || Drug: %s || Price: %d || Quantity: %d\n", items[i].id, items[i].name, items[i].company, items[i].drug, items[i].price, items[i].quantity);
         }
     }
+}
+
+void updateMedicine()
+{
+    char id[50];
+    printf("Enter Medicine ID to update: ");
+    scanf("%s", id);
+    for (int i = 0; i < itemCount; i++)
+    {
+        if (strcmp(items[i].id, id) == 0)
+        {
+            printf("Enter Updated Price: ");
+            scanf("%d", &items[i].price);
+            printf("Enter Updated Quantity: ");
+            scanf("%d", &items[i].quantity);
+            printf("\n---Item Updated Successfully---\n");
+            saveItemsToFile();
+            return;
+        }
+    }
+    printf("---Medicine not found!---\n");
 }
 
 void removeMedicine()
@@ -156,7 +178,6 @@ void calculateBill()
                 totalBill = totalBill + (items[j].price * quantity);
 
                 items[j].quantity = items[j].quantity - quantity;
-
             }
             else
             {
@@ -172,31 +193,6 @@ void calculateBill()
 
     printf("Total Bill: %.2f\n", totalBill);
 }
-
-void updateMedicine()
-{
-    char id[50];
-    printf("Enter Medicine ID to update: ");
-    scanf("%s", id);
-    for (int i = 0; i < itemCount; i++)
-    {
-        if (strcmp(items[i].id, id) == 0)
-        {
-            printf("Enter Updated Price: ");
-            scanf("%d", &items[i].price);
-            printf("Enter Updated Quantity: ");
-            scanf("%d", &items[i].quantity);
-            printf("\n---Item Updated Successfully---\n");
-            saveItemsToFile();
-            return;
-        }
-    }
-    printf("---Medicine not found!---\n");
-    
-}
-
-
-
 
 int main()
 {
