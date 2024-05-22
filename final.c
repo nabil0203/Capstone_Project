@@ -156,44 +156,55 @@ void removeMedicine()
 
 void calculateBill()
 {
-    printf("\nCalculating Bill\n");
+    printf("\nCalculating Bill:-\n");
     float totalBill = 0.0;
 
-    printf("Enter the ID of the item to purchase: ");
-    char itemID[50];
-    scanf("%s", itemID);
-
-    printf("Enter the quantity of the item: ");
-    int quantity;
-    scanf("%d", &quantity);
-
-    int found = 0;
-    for (int j = 0; j < itemCount; j++)
+    while (1)
     {
-        if (strcmp(items[j].id, itemID) == 0)
+        printf("\nEnter the ID of the item to purchase: ");
+        char itemID[50];
+        scanf("%s", itemID);
+
+        printf("Enter the quantity of the item: ");
+        int quantity;
+        scanf("%d", &quantity);
+
+        int found = 0;
+        for (int j = 0; j < itemCount; j++)
         {
-            found = 1;
-            if (quantity <= items[j].quantity)
+            if (strcmp(items[j].id, itemID) == 0)
             {
-                printf("Item %s: %s x %d = %.2f\n", itemID, items[j].name, quantity, items[j].price * quantity);
+                found = 1;
+                if (quantity <= items[j].quantity)
+                {
+                    printf("Item %s: %s x %d = %.2f\n", itemID, items[j].name, quantity, items[j].price * quantity);
 
-                totalBill = totalBill + (items[j].price * quantity);
+                    totalBill = totalBill + (items[j].price * quantity);
 
-                items[j].quantity = items[j].quantity - quantity;
+                    items[j].quantity = items[j].quantity - quantity;
+                }
+                else
+                {
+                    printf("---Stock not available. Only %d units available.---\n", items[j].quantity);
+                }
+                break;
             }
-            else
-            {
-                printf("---Stock not available. Only %d units available.---\n", items[j].quantity);
-            }
+        }
+        if (!found)
+        {
+            printf("---Item with ID %s not found.---\n", itemID);
+        }
+
+        printf("\n-----Total Bill: %.2f-----\n", totalBill);
+
+        char again;
+        printf("\nDo you want to calculate bill for another item? (1 for Yes, 0 for No):  ");
+        scanf(" %c", &again);
+        if (again != 1)
+        {
             break;
         }
     }
-    if (!found)
-    {
-        printf("---Item with ID %s not found.---\n", itemID);
-    }
-
-    printf("Total Bill: %.2f\n", totalBill);
 }
 
 int main()
