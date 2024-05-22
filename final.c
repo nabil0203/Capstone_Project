@@ -86,7 +86,7 @@ void loadItemsFromFile()
 
 void showList()
 {
-    printf("\n\n~~~Viewing Item:-\n");
+    printf("\n~~~Viewing Items:-\n");
     if (itemCount == 0)
     {
         printf("No medicine found.\n");
@@ -95,7 +95,7 @@ void showList()
     {
         for (int i = 0; i < itemCount; i++)
         {
-            printf("ID: %s || Name: %s || Company: %s || Drug: %s || Price: %.2f || Quantity: %d\n", items[i].id, items[i].name, items[i].company, items[i].drug, items[i].price, items[i].quantity);
+            printf("\nID: %s || Name: %s || Company: %s || Drug: %s || Price: %.2f || Quantity: %d\n", items[i].id, items[i].name, items[i].company, items[i].drug, items[i].price, items[i].quantity);
         }
     }
 }
