@@ -43,6 +43,7 @@ void addMedicine()
     scanf("%d", &newItem.quantity);
 
     items[itemCount++] = newItem;
+    
     printf("\n---New Item Added Successfully---\n");
 }
 
