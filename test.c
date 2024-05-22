@@ -1,7 +1,7 @@
 #include <stdio.h>
-#include <stdlib.h> // used for case 0, exit(0);
+#include <stdlib.h>
 #include <string.h>
-#define MAX_ITEMS 100
+#define MAX_ITEMS 100       
 
 struct Item
 {
@@ -18,9 +18,12 @@ int databaseLoaded = 0;
 
 void addMedicine()
 {
+    system("cls");
     printf("\nAdding Item\n");
+
     struct Item newItem;
-    getchar(); // getchar() function is used to read one character at a time from the key board.When this function is executed, the computer will wait for a key to be pressed and assigns the value to the variable when the “enter” key pressed.
+
+    getchar();
 
     printf("Enter ID: ");
     gets(newItem.id);
@@ -40,12 +43,15 @@ void addMedicine()
     printf("Enter Quantity: ");
     scanf("%d", &newItem.quantity);
 
+
     items[itemCount++] = newItem;
+    printf("\n---New Item Added Successfully---\n");
 }
 
 void saveItemsToFile()
 {
-    FILE *fp = fopen("items.txt", "w");
+    // system("cls");
+    FILE *fp = fopen("item.txt", "w");
     if (fp == NULL)
     {
         printf("Error opening file!\n");
@@ -61,7 +67,8 @@ void saveItemsToFile()
 
 void loadItemsFromFile()
 {
-    FILE *fp = fopen("items.txt", "r");
+    system("cls");
+    FILE *fp = fopen("item.txt", "r");
     if (fp == NULL)
     {
         // Initialize the itemCount variable to 0
@@ -80,7 +87,8 @@ void loadItemsFromFile()
 
 void showList()
 {
-    printf("\nViewing Item\n");
+    system("cls");
+    printf("\nViewing Item:-\n");
     if (itemCount == 0)
     {
         printf("No medicine found.\n");
@@ -89,13 +97,14 @@ void showList()
     {
         for (int i = 0; i < itemCount; i++)
         {
-            printf("ID: %s, Name: %s, Company: %s, Drug: %s, Price: %d, Quantity: %d\n", items[i].id, items[i].name, items[i].company, items[i].drug, items[i].price, items[i].quantity);
+            printf("ID: %s || Name: %s || Company: %s || Drug: %s || Price: %d || Quantity: %d\n", items[i].id, items[i].name, items[i].company, items[i].drug, items[i].price, items[i].quantity);
         }
     }
 }
 
 void removeMedicine()
 {
+    // system("cls");
     printf("\nDeleting Item\n");
     char idToDelete[50];
     printf("Enter ID of item to delete: ");
@@ -104,7 +113,7 @@ void removeMedicine()
     int found = 0;
     for (int i = 0; i < itemCount; i++)
     {
-        if (strcmp(items[i].id, idToDelete) == 0)
+        if (strcmp(items[i].id, idToDelete) == 0) // strcmp function used to compares two strings alphabetically
         {
             found = 1;
             for (int j = i; j < itemCount - 1; j++)
@@ -118,17 +127,18 @@ void removeMedicine()
 
     if (found)
     {
-        printf("Item with ID %s deleted.\n", idToDelete);
+        printf("\n---Item Removed Successfully---\n");
         saveItemsToFile();
     }
     else
     {
-        printf("Item with ID %s not found.\n", idToDelete);
+        printf("---Item with ID %s not found.---\n", idToDelete);
     }
 }
 
 void calculateBill()
 {
+    // system("cls");
     printf("\nCalculating Bill\n");
     float totalBill = 0.0;
 
@@ -150,18 +160,20 @@ void calculateBill()
             {
                 printf("Item %s: %s x %d = %d\n", itemID, items[j].name, quantity, items[j].price * quantity);
                 totalBill = totalBill + (items[j].price * quantity);
-                items[j].quantity -= quantity;
+
+                items[j].quantity = items[j].quantity - quantity;
+
             }
             else
             {
-                printf("Stock not available. Only %d units available.\n", items[j].quantity);
+                printf("---Stock not available. Only %d units available.---\n", items[j].quantity);
             }
             break;
         }
     }
     if (!found)
     {
-        printf("Item with ID %s not found.\n", itemID);
+        printf("---Item with ID %s not found.---\n", itemID);
     }
 
     printf("Total Bill: %.2f\n", totalBill);
@@ -169,6 +181,7 @@ void calculateBill()
 
 void updateMedicine()
 {
+    // system("cls");
     char id[50];
     printf("Enter Medicine ID to update: ");
     scanf("%s", id);
@@ -180,18 +193,20 @@ void updateMedicine()
             scanf("%d", &items[i].price);
             printf("Enter Updated Quantity: ");
             scanf("%d", &items[i].quantity);
-            printf("Medicine details updated successfully!\n");
+            printf("\n---Item Updated Successfully---\n");
             saveItemsToFile();
             return;
         }
     }
-    printf("Medicine not found!\n");
+    printf("---Medicine not found!---\n");
+    
 }
+
 
 int main()
 {
     int loadChoice;
-    printf("Do you want to load the database? (1 for Yes, 0 for No): ");
+    printf("\nDo you want to load Previous Database? (1 for Yes, 0 for No): ");
     scanf("%d", &loadChoice);
 
     if (loadChoice == 1)
@@ -199,16 +214,16 @@ int main()
         loadItemsFromFile();
         if (itemCount == 0)
         {
-            printf("No data found in the database.\n");
+            printf("\nNo data found in the Database. Starting with the Main Menu-\n");
         }
         else
         {
-            printf("Database loaded successfully.\n");
+            printf("\n--- Database loaded Successfully ---\n");
         }
     }
     else
     {
-        printf("\nDatabase will not be loaded. Starting with an empty inventory.\n");
+        printf("\nDatabase will not be loaded. Starting with the Main Menu- \n");
         itemCount = 0;
     }
 
@@ -218,15 +233,14 @@ int main()
 
         printf("\n~~~~~~~~~~~~~~~ WELCOME ~~~~~~~~~~~~~~~\n");
         printf("\n~~~ Medical Store Management System ~~~\n");
-        printf("\n~\n\n");
+        printf("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
         printf("1. Add Medicine\n");
         printf("2. Show Medicine List\n");
         printf("3. Update Medicine\n");
         printf("4. Remove Medicine\n");
         printf("5. Calculate bill\n");
-        printf("0. Exit\n");
-        printf("\n~\n");
-        printf("Enter your Choice: ");
+        printf("0. Exit\n\n~");
+        printf("\nEnter your Choice: ");
 
         scanf("%d", &choice);
         switch (choice)
