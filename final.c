@@ -9,7 +9,8 @@ struct Item
     char name[50];
     char company[50];
     char drug[50];
-    int price, quantity;
+    float price;
+    int quantity;
 };
 
 struct Item items[MAX_ITEMS];
@@ -37,7 +38,7 @@ void addMedicine()
     gets(newItem.drug);
 
     printf("Enter Price: ");
-    scanf("%d", &newItem.price);
+    scanf("%f", &newItem.price);
 
     printf("Enter Quantity: ");
     scanf("%d", &newItem.quantity);
@@ -57,7 +58,7 @@ void saveItemsToFile()
     }
     for (int i = 0; i < itemCount; i++)
     {
-        fprintf(fp, "%s %s %s %s %d %d\n", items[i].id, items[i].name, items[i].company, items[i].drug, items[i].price, items[i].quantity);
+        fprintf(fp, "%s %s %s %s %.2f %d\n", items[i].id, items[i].name, items[i].company, items[i].drug, items[i].price, items[i].quantity);
     }
 
     fclose(fp);
@@ -75,7 +76,7 @@ void loadItemsFromFile()
     }
 
     itemCount = 0;
-    while (fscanf(fp, "%s %s %s %s %d %d", items[itemCount].id, items[itemCount].name, items[itemCount].company, items[itemCount].drug, &items[itemCount].price, &items[itemCount].quantity) == 6)
+    while (fscanf(fp, "%s %s %s %s %f %d", items[itemCount].id, items[itemCount].name, items[itemCount].company, items[itemCount].drug, &items[itemCount].price, &items[itemCount].quantity) == 6)
     {
         itemCount++;
     }
@@ -94,7 +95,7 @@ void showList()
     {
         for (int i = 0; i < itemCount; i++)
         {
-            printf("ID: %s || Name: %s || Company: %s || Drug: %s || Price: %d || Quantity: %d\n", items[i].id, items[i].name, items[i].company, items[i].drug, items[i].price, items[i].quantity);
+            printf("ID: %s || Name: %s || Company: %s || Drug: %s || Price: %.2f || Quantity: %d\n", items[i].id, items[i].name, items[i].company, items[i].drug, items[i].price, items[i].quantity);
         }
     }
 }
@@ -109,7 +110,7 @@ void updateMedicine()
         if (strcmp(items[i].id, id) == 0)
         {
             printf("Enter Updated Price: ");
-            scanf("%d", &items[i].price);
+            scanf("%f", &items[i].price);
             printf("Enter Updated Quantity: ");
             scanf("%d", &items[i].quantity);
             printf("\n---Item Updated Successfully---\n");
@@ -174,7 +175,8 @@ void calculateBill()
             found = 1;
             if (quantity <= items[j].quantity)
             {
-                printf("Item %s: %s x %d = %d\n", itemID, items[j].name, quantity, items[j].price * quantity);
+                printf("Item %s: %s x %d = %.2f\n", itemID, items[j].name, quantity, items[j].price * quantity);
+
                 totalBill = totalBill + (items[j].price * quantity);
 
                 items[j].quantity = items[j].quantity - quantity;
@@ -196,6 +198,11 @@ void calculateBill()
 
 int main()
 {
+
+    printf("\n~~~~~~~~~~~~~~~ WELCOME ~~~~~~~~~~~~~~~\n");
+    printf("\n~~~ Medical Store Management System ~~~\n");
+    printf("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
+    
     int loadChoice;
     printf("\nDo you want to load Previous Database? (1 for Yes, 0 for No): ");
     scanf("%d", &loadChoice);
@@ -222,9 +229,9 @@ int main()
     while (1)
     {
 
-        printf("\n~~~~~~~~~~~~~~~ WELCOME ~~~~~~~~~~~~~~~\n");
-        printf("\n~~~ Medical Store Management System ~~~\n");
-        printf("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
+        printf("\n~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+        printf("\n~~~~~~~ Main Menu ~~~~~~~~\n");
+        printf("\n~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
         printf("1. Add Medicine\n");
         printf("2. Show Medicine List\n");
         printf("3. Update Medicine\n");
