@@ -200,7 +200,7 @@ void calculateBill()
         char again;
         printf("\nDo you want to calculate bill for another item? (1 for Yes, 0 for No):  ");
         scanf(" %c", &again);
-        if (again != 1)
+        if (again != '1')
         {
             break;
         }
