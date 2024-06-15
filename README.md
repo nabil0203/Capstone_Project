@@ -2,7 +2,7 @@
 
 ---
 
-This project implements a basic management system for a medical store. It was developed as a Capstone Project by TEAM_TITAN under the guidance of Md. Abdul Hye Zebon Sir.
+This project implements a basic management system for a medical store. It was developed as a Capstone Project by TEAM_TITAN under the guidance of [Md. Abdul Hye Zebon Sir](https://faculty.daffodilvarsity.edu.bd/profile/swe/zebon.html).
 
 ## TEAM_TITAN
 
